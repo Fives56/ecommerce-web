@@ -6,6 +6,7 @@ import { finalize, takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/op
 import { ProductCardComponent } from '../../../shared/components/product-card/product-card.component';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ToastService } from '../../../core/services/toast.service';
 
 @Component({
   selector: 'app-list',
@@ -15,6 +16,7 @@ import { CommonModule } from '@angular/common';
 export class ListComponent extends CoreComponent implements OnInit {
   private _productService = inject(ProductService);
   private _fb = inject(FormBuilder);
+  private _toastService = inject(ToastService);
 
   private scrollThreshold = 300;
   showBackToTop = signal(false);
