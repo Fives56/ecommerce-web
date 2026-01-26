@@ -4,11 +4,11 @@
       <h1 class="text-2xl text-white">Ecommerce</h1>
     </div>
 
-    <!-- TODO: implement login component -->
     <div class="flex items-center gap-3">
       <button class="text-white/90 hover:text-white font-medium py-2 px-4 hover:bg-white/10 
-                    rounded-lg transition-colors duration-200 text-sm">
-        Sign In
+                    rounded-lg transition-colors duration-200 text-sm" 
+              (click)="onClick()">
+        {{ (authService.isLoggedIn() ? 'Log Out' : 'Sign In') }}
       </button>
       
       <button (click)="this.cartService.openCart()"
