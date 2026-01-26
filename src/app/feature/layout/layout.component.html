@@ -1,16 +1,18 @@
-<header class="bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-800 py-3 px-4 sticky top-0 left-0 w-full z-50 shadow-lg border-b border-blue-900/40">
+<header class="bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-800 py-3 px-4 sticky top-0 w-full z-50 shadow-lg border-b border-blue-900/40">
   <div class="container mx-auto flex justify-between items-center">
     <div class="flex items-center">
       <h1 class="text-2xl text-white">Ecommerce</h1>
     </div>
 
+    <!-- TODO: implement login component -->
     <div class="flex items-center gap-3">
       <button class="text-white/90 hover:text-white font-medium py-2 px-4 hover:bg-white/10 
                     rounded-lg transition-colors duration-200 text-sm">
         Sign In
       </button>
       
-      <button class="relative group">
+      <button (click)="this.cartService.openCart()"
+              class="relative group">
         <div class="bg-white/90 hover:bg-white text-blue-800 p-2 rounded-full 
                    transition-all duration-200 hover:shadow-sm">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" 
@@ -19,14 +21,21 @@
                   d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
           </svg>
         </div>
-        <!-- TODO: Add notifications from car store -->
-        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[9px] 
+        <!-- Contador dinámico -->
+        @if (((totalItems$ | async) ?? 0) > 0) {
+          <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[9px] 
                      font-bold rounded-full h-4 w-4 flex items-center justify-center">
-          3
-        </span>
+            {{ totalItems$ | async }}
+          </span>
+        }
       </button>
     </div>
   </div>
 </header>
+
+<app-cart 
+  [isOpen]="(isCartOpen$ | async) || false" 
+  (closed)="cartService.closeCart()">
+</app-cart>
 
 <router-outlet></router-outlet>

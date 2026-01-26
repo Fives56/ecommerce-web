@@ -2,7 +2,7 @@
     <div class="relative overflow-hidden bg-gray-100">
         <!-- Product image -->
         <img src="{{ product()?.image }}" alt="Product image"
-            class="w-full h-48 object-contain hover:scale-105 transition-transform duration-500">
+            class="w-full h-48 object-contain hover:scale-105 transition-transform duration-500 py-6">
         
         <!-- Category badge -->
         @if (product()?.category) {
@@ -49,7 +49,7 @@
                 </span>
             </div>
             
-            <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg 
+            <button [appAddToCart]="product()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg 
                        flex items-center gap-2 transition-colors duration-200 text-sm">
                 Add
             </button>

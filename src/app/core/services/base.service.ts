@@ -10,6 +10,10 @@ export class BaseService {
   protected apiUrl = environment.apiUrl;
   url: string = '';
 
+  /**
+   * Fetches all records from the resource endpoint.
+   * @returns Observable of all records
+   */
   all() {
     return this.http.get(`${this.apiUrl}${this.url}`);
   }
