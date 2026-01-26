@@ -18,6 +18,7 @@ export class ListComponent extends CoreComponent implements OnInit {
 
   private scrollThreshold = 300;
   showBackToTop = signal(false);
+  showPriceFilter = signal(false)
   isLoading = signal(true);
 
   filteredProducts = signal<Product[]>([]);
@@ -72,6 +73,7 @@ export class ListComponent extends CoreComponent implements OnInit {
   private applyFilters(): void {
     const filters = this.filtersForm.value;
     let filtered = this.products;
+    filters.search = filters.search.trim();
 
     if (filters.search) {
       const searchTerm = filters.search.toLowerCase();
