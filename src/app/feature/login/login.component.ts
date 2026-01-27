@@ -30,6 +30,9 @@ export class LoginComponent extends CoreComponent {
     password: ['', Validators.required,]
   });
 
+  /**
+   * Handles form submission to login the user
+   */
   onSubmit(): void {
 
     this.returnUrl = this._activatedRute.snapshot.queryParams['returnUrl'] || '/';
@@ -65,6 +68,10 @@ export class LoginComponent extends CoreComponent {
       });
   }
 
+  /**
+   * Marks all form controls as touched
+   * @param formGroup Form group
+   */
   private markFormGroupTouched(formGroup: FormGroup): void {
     Object.values(formGroup.controls).forEach(control => {
       control.markAsTouched();

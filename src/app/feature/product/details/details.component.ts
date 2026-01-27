@@ -21,7 +21,6 @@ export class DetailsComponent implements OnInit {
   private cartService = inject(CartService);
   private toastService = inject(ToastService);
 
-  // Signals
   product = signal<Product | null>(null);
   isLoading = signal(true);
   quantity = signal(1);

@@ -2,6 +2,7 @@ import { Directive, HostListener, inject, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Product } from '../../core/interfaces/product';
 import * as CartActions from '../../core/store/cart/cart.actions';
+import { ToastService } from '../../core/services/toast.service';
 
 @Directive({
   selector: '[appAddToCart]'
@@ -11,7 +12,8 @@ export class AddToCartDirective {
   @Input() openCartOnAdd: boolean = false;
   @Input() successMessage: string = 'Product added to cart!';
 
-  private store = inject(Store);
+  private _store = inject(Store);
+  private _toastService = inject(ToastService);
 
   @HostListener('click')
   onClick(): void {
@@ -22,7 +24,7 @@ export class AddToCartDirective {
 
     const { id, title, price, image } = this.appAddToCart;
 
-    this.store.dispatch(CartActions.addToCart({
+    this._store.dispatch(CartActions.addToCart({
       item: {
         id,
         title,
@@ -32,14 +34,15 @@ export class AddToCartDirective {
     }));
 
     if (this.openCartOnAdd) {
-      this.store.dispatch(CartActions.openCart());
+      this._store.dispatch(CartActions.openCart());
     }
     this.showNotification();
   }
 
-  //TODO: Add notifications toastr
+  /**
+   * Show a success notification
+   */
   private showNotification(): void {
-    console.log(this.successMessage);
-    console.log(`${this.successMessage}`);
+    this._toastService.success(this.successMessage);
   }
 }
