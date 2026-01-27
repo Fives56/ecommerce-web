@@ -30,3 +30,8 @@ export const selectCartTotal = createSelector(
         total: subtotal,
     })
 );
+
+export const selectShowClearCartModal = createSelector(
+    selectCartState,
+    (state: CartState) => state.showClearCartModal
+);

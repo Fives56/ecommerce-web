@@ -1,58 +1,63 @@
 <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100">
-    <div class="relative overflow-hidden bg-gray-100">
-        <!-- Product image -->
-        <img src="{{ product()?.image }}" alt="Product image"
-            class="w-full h-48 object-contain hover:scale-105 transition-transform duration-500 py-6">
-        
-        <!-- Category badge -->
-        @if (product()?.category) {
+    
+    <div (click)="viewProductDetail()" >
+
+        <div class="relative overflow-hidden bg-gray-100">
+            <!-- Product image -->
+            <img src="{{ product()?.image }}" alt="Product image"
+                class="w-full h-48 object-contain hover:scale-105 transition-transform duration-500 py-6">
+
+            <!-- Category badge -->
+            @if (product()?.category) {
             <div class="absolute top-3 right-3">
                 <span class="text-xs font-semibold px-3 py-1 rounded-full 
                            bg-gray-800/90 text-white backdrop-blur-sm">
                     {{ product()?.category }}
                 </span>
             </div>
-        }
-    </div>
+            }
+        </div>
 
-    <div class="p-4">
-        <h3 class="text-lg font-semibold text-gray-900 mb-2 truncate">
-            {{ product()?.title }}
-        </h3>
+        <div class="p-4">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2 truncate">
+                {{ product()?.title }}
+            </h3>
 
-        <!-- Rating -->
-        <div class="flex items-center mb-3">
-            <div class="flex">
-                @for (i of [1, 2, 3, 4, 5]; track i) {
-                    @if (i <= (product()?.rating?.rate ?? 0)) { 
-                        <app-star color="currentColor" class="text-yellow-400" />
+            <!-- Rating -->
+            <div class="flex items-center mb-3">
+                <div class="flex">
+                    @for (i of [1, 2, 3, 4, 5]; track i) {
+                    @if (i
+                    <= (product()?.rating?.rate ?? 0)) { <app-star color="currentColor" class="text-yellow-400" />
                     } @else {
-                        <app-star color="#e5e7eb" />
+                    <app-star color="#e5e7eb" />
                     }
-                }
+                    }
+                </div>
+                <span class="text-sm text-gray-500 ml-2">
+                    ({{ product()?.rating?.rate | number:'1.1-1' }})
+                </span>
             </div>
-            <span class="text-sm text-gray-500 ml-2">
-                ({{ product()?.rating?.rate | number:'1.1-1' }})
+
+            <!-- Description -->
+            <p class="text-gray-600 text-sm mb-4">
+                {{ product()?.description | shortDescription:50 }}
+            </p>
+
+        </div>
+
+    </div>
+    <!-- Price and add to cart button -->
+    <div class="flex items-center justify-between p-4">
+        <div>
+            <span class="text-xl font-bold text-gray-900">
+                ${{ product()?.price | number:'1.2-2' }}
             </span>
         </div>
 
-        <!-- Description -->
-        <p class="text-gray-600 text-sm mb-4">
-            {{ product()?.description | shortDescription:50 }}
-        </p>
-
-        <!-- Price and add to cart button -->
-        <div class="flex items-center justify-between">
-            <div>
-                <span class="text-xl font-bold text-gray-900">
-                    ${{ product()?.price | number:'1.2-2' }}
-                </span>
-            </div>
-            
-            <button [appAddToCart]="product()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg 
+        <button [appAddToCart]="product()" (click)="$event.preventDefault()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg 
                        flex items-center gap-2 transition-colors duration-200 text-sm">
-                Add
-            </button>
-        </div>
+            Add
+        </button>
     </div>
 </div>

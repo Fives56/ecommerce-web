@@ -1,0 +1,70 @@
+<div class="fixed inset-0 z-[110]" [class.hidden]="!(isOpen$ | async)">
+  <div class="absolute inset-0 bg-black/50 transition-opacity duration-300" 
+       (click)="close()"></div>
+  
+  <!-- Modal -->
+  <div class="absolute inset-0 flex items-center justify-center p-4">
+    <div class="relative bg-white rounded-xl shadow-2xl w-full max-w-md transform transition-all duration-300"
+         [class.opacity-0]="!(isOpen$ | async)"
+         [class.scale-95]="!(isOpen$ | async)"
+         [class.opacity-100]="(isOpen$ | async)"
+         [class.scale-100]="(isOpen$ | async)">
+      
+      <div class="p-6">
+        <!-- Icon -->
+        <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4">
+          <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+          </svg>
+        </div>
+
+        <h3 class="text-lg font-semibold text-gray-900 text-center mb-2">
+          Clear Shopping Cart
+        </h3>
+
+        <div class="text-center mb-6">
+          <p class="text-sm text-gray-600">
+            Are you sure you want to remove all items from your cart?
+          </p>
+          <p class="text-xs text-gray-500 mt-1">
+            This action cannot be undone.
+          </p>
+        </div>
+
+        <!-- Items quantity -->
+        @if ((itemCount$ | async) ?? 0 > 0) {
+          <div class="bg-gray-50 rounded-lg p-3 mb-6">
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-600">Items in cart:</span>
+              <span class="text-sm font-medium text-gray-900">{{ itemCount$ | async }}</span>
+            </div>
+          </div>
+        }
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button 
+            type="button"
+            (click)="close()"
+            class="flex-1 px-4 py-2.5 border border-gray-300 text-gray-700 font-medium rounded-lg 
+                   hover:bg-gray-50 transition-colors duration-200">
+            Cancel
+          </button>
+          
+          <button 
+            type="button"
+            (click)="confirm()"
+            class="flex-1 px-4 py-2.5 bg-red-600 text-white font-medium rounded-lg 
+                   hover:bg-red-700 transition-colors duration-200 
+                   flex items-center justify-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+            Clear Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

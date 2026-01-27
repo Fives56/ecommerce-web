@@ -1,10 +1,9 @@
-// login.component.ts
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
-import { catchError, filter, finalize, map, of, switchMap, takeUntil } from 'rxjs';
+import { filter, map, of, switchMap, takeUntil } from 'rxjs';
 import { CoreComponent } from '../../shared/components/core/core.component';
 import { UserService } from '../../core/services/user.service';
 import { User } from '../../core/interfaces/user';
@@ -21,6 +20,9 @@ export class LoginComponent extends CoreComponent {
   private _authService = inject(AuthService);
   private _userService = inject(UserService);
   private _toastService = inject(ToastService);
+  private _activatedRute = inject(ActivatedRoute);
+
+  returnUrl: string = '/';
 
   isLoading = signal(false);
   loginForm: FormGroup = this._fb.group({
@@ -29,6 +31,8 @@ export class LoginComponent extends CoreComponent {
   });
 
   onSubmit(): void {
+
+    this.returnUrl = this._activatedRute.snapshot.queryParams['returnUrl'] || '/';
     let authToken: string
 
     if (this.loginForm.invalid) {
@@ -55,7 +59,7 @@ export class LoginComponent extends CoreComponent {
       ).subscribe((response: User) => {
         if (!!response) {
           this._authService.setLocalStorage(authToken, response);
-          this._router.navigate(['/']);
+          this._router.navigate([this.returnUrl]);
           this._toastService.success(`Welcome back ${response.username}!`);
         }
       });
