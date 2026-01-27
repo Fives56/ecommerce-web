@@ -54,11 +54,11 @@ export class CartComponent {
     this.store.dispatch(CartActions.updateQuantity({ id, quantity }));
   }
 
-  /**
-   * Clear the cart
+  /** 
+   * Open clear cart confirmation modal 
    */
-  clearCart(): void {
-    this.store.dispatch(CartActions.clearCart());
+  openClearCartModal(): void {
+    this.store.dispatch(CartActions.openClearCartModal());
   }
 
   /**

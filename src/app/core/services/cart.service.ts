@@ -60,4 +60,25 @@ export class CartService {
   closeCart(): void {
     this.store.dispatch(CartActions.closeCart());
   }
+
+  /**
+ * Open clear cart confirmation modal
+ */
+  openClearCartModal(): void {
+    this.store.dispatch(CartActions.openClearCartModal());
+  }
+
+  /**
+   * Close clear cart confirmation modal
+   */
+  closeClearCartModal(): void {
+    this.store.dispatch(CartActions.closeClearCartModal());
+  }
+
+  /**
+   * Confirm and clear cart (from modal)
+   */
+  confirmClearCart(): void {
+    this.store.dispatch(CartActions.confirmClearCart());
+  }
 }

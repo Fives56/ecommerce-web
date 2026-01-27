@@ -5,10 +5,12 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
 import { cartReducer } from './core/store/cart/cart.reducer';
+import { errorInterceptor } from './core/interceptors/error.interceptor';
+import { tokenInterceptor } from './core/interceptors/token.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([errorInterceptor, tokenInterceptor])),
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes), 
     provideStore({

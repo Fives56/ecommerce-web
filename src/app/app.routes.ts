@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './feature/layout/layout.component';
-import { LoginComponent } from './feature/login/login.component';
+import { checkoutGuard } from './core/guards/checkout.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'products', pathMatch: 'full' },
@@ -12,5 +12,10 @@ export const routes: Routes = [
   {
     path: 'login',
     loadComponent: () => import('./feature/login/login.component').then(m => m.LoginComponent),
+  },
+  {
+    path: 'checkout',
+    canActivate: [checkoutGuard],
+    loadComponent: () => import('./feature/checkout/checkout.component').then(m => m.CheckoutComponent),
   },
 ];

@@ -20,3 +20,7 @@ export const clearCart = createAction('[Cart] Clear');
 export const toggleCart = createAction('[Cart] Toggle');
 export const openCart = createAction('[Cart] Open');
 export const closeCart = createAction('[Cart] Close');
+
+export const openClearCartModal = createAction('[Cart] Open Clear Cart Modal');
+export const closeClearCartModal = createAction('[Cart] Close Clear Cart Modal');
+export const confirmClearCart = createAction('[Cart] Confirm Clear Cart');

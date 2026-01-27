@@ -16,5 +16,13 @@ export class BaseService {
    */
   all() {
     return this.http.get(`${this.apiUrl}${this.url}`);
+  
+  }
+  /**
+   * Get a single record by id from the resource endpoint.
+   * @returns Observable of all records
+   */
+  get(id: number) {
+    return this.http.get(`${this.apiUrl}${this.url}/${id}`);
   }
 }
