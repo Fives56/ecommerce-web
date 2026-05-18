@@ -26,7 +26,6 @@ jobs:
       - name: Ejecutar Cypress
         uses: cypress-io/github-action@v6
         with:
-          build: npm run build
           start: npm start
           wait-on: 'http://localhost:4200'
           run: npm run cypress:run
